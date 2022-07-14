@@ -1,0 +1,42 @@
+version: "3"
+services:
+  # backend:
+  #   # build: ./backend
+  #   build:
+  #     context: ./backend
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "3000:3000"
+  #   volumes:
+  #     - ./backend:/app
+  #     - /app/node_modules
+  #     - images:/app/images
+  #     # - data:/app/data
+  #   env_file:
+  #     - ./env/backend.env
+  #     - ./env/common.env
+
+  frontend:
+    build: ./frontend
+    # build:
+    #   context: ./frontend
+    #   dockerfile: Dockerfile
+    ports:
+      - "80:3000"
+      # for hot reloading
+    # stdin_open: true
+    # tty: true
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      NODE_ENV: "development"
+      CHOKIDAR_USEPOLLING: "true"
+      WDS_SOCKET_PORT: "80"
+    env_file:
+      - ./env/frontend.env
+    #   - ./env/common.env
+# volumes:
+#   images:
+# data:
+# mysql_data:
